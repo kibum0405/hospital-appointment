@@ -1,0 +1,228 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: appointment
+  labels:
+    app: appointment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: appointment
+  template:
+    metadata:
+      labels:
+        app: appointment
+    spec:
+      containers:
+        - name: appointment
+          image: username/appointment:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: management
+  labels:
+    app: management
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: management
+  template:
+    metadata:
+      labels:
+        app: management
+    spec:
+      containers:
+        - name: management
+          image: username/management:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment
+  labels:
+    app: payment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment
+  template:
+    metadata:
+      labels:
+        app: payment
+    spec:
+      containers:
+        - name: payment
+          image: username/payment:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: boundedcontext1353
+  labels:
+    app: boundedcontext1353
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: boundedcontext1353
+  template:
+    metadata:
+      labels:
+        app: boundedcontext1353
+    spec:
+      containers:
+        - name: boundedcontext1353
+          image: username/boundedcontext1353:latest
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 10
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: '/actuator/health'
+              port: 8080
+            initialDelaySeconds: 120
+            timeoutSeconds: 2
+            periodSeconds: 5
+            failureThreshold: 5
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointment
+  labels:
+    app: appointment
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: appointment
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: management
+  labels:
+    app: management
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: management
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment
+  labels:
+    app: payment
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: payment
+
+
+---
+
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: boundedcontext1353
+  labels:
+    app: boundedcontext1353
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: boundedcontext1353
+
