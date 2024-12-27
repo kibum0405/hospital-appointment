@@ -1,36 +1,24 @@
 <template>
     <v-card outlined>
         <v-card-title>
-            Appointment # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
+            Notification # {{item._links.self.href.split("/")[item._links.self.href.split("/").length - 1]}}
         </v-card-title>
 
         <v-card-text>
             <div>
-                <Number label="AppointmentId" v-model="item.appointmentId" :editMode="editMode" @change="change" />
-            </div>
-            <div>
-                <String label="Name" v-model="item.name" :editMode="editMode" @change="change" />
+                <Number label="NotificationId" v-model="item.notificationId" :editMode="editMode" @change="change" />
             </div>
             <div>
                 <Number label="PatientId" v-model="item.patientId" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <Number label="DoctorId" v-model="item.doctorId" :editMode="editMode" @change="change" />
-            </div>
-            <div>
-                <Date label="AppointmentDate" v-model="item.appointmentDate" :editMode="editMode" @change="change" />
-            </div>
-            <div>
-                <String label="Status" v-model="item.status" :editMode="editMode" @change="change" />
+                <String label="Message" v-model="item.message" :editMode="editMode" @change="change" />
             </div>
             <div>
                 <String label="CreatedAt" v-model="item.createdAt" :editMode="editMode" @change="change" />
             </div>
             <div>
-                <String label="UpdatedAt" v-model="item.updatedAt" :editMode="editMode" @change="change" />
-            </div>
-            <div>
-                <String label="Symptom" v-model="item.symptom" :editMode="editMode" @change="change" />
+                <Boolean label="Status" v-model="item.status" :editMode="editMode" @change="change" />
             </div>
         </v-card-text>
 
@@ -78,7 +66,7 @@
     const axios = require('axios').default;
 
     export default {
-        name: 'AppointmentAppointmentDetail',
+        name: 'NotificationNotificationDetail',
         components:{},
         props: {
         },
@@ -89,7 +77,7 @@
         async created() {
             var me = this;
             var params = this.$route.params;
-            var temp = await axios.get(axios.fixUrl('/appointments/' + params.id))
+            var temp = await axios.get(axios.fixUrl('/notifications/' + params.id))
             if(temp.data) {
                 me.item = temp.data
             }

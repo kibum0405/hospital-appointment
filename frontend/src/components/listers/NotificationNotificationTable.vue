@@ -31,7 +31,7 @@
                         </v-fab-transition>
                     </template>
 
-                    <AppointmentAppointment :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <NotificationNotification :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
                             style="postition:absolute; top:2%; right:2%"
@@ -50,12 +50,12 @@
 
 <script>
     const axios = require('axios').default;
-    import AppointmentAppointment from './../AppointmentAppointment.vue';
+    import NotificationNotification from './../NotificationNotification.vue';
 
     export default {
-        name: 'AppointmentAppointmentManager',
+        name: 'NotificationNotificationManager',
         components: {
-            AppointmentAppointment,
+            NotificationNotification,
         },
         props: {
             offline: Boolean,
@@ -67,17 +67,13 @@
             headers: 
                 [
                     { text: "id", value: "id" },
-                    { text: "appointmentId", value: "appointmentId" },
-                    { text: "name", value: "name" },
+                    { text: "notificationId", value: "notificationId" },
                     { text: "patientId", value: "patientId" },
-                    { text: "doctorId", value: "doctorId" },
-                    { text: "appointmentDate", value: "appointmentDate" },
-                    { text: "status", value: "status" },
+                    { text: "message", value: "message" },
                     { text: "createdAt", value: "createdAt" },
-                    { text: "updatedAt", value: "updatedAt" },
-                    { text: "symptom", value: "symptom" },
+                    { text: "status", value: "status" },
                 ],
-            appointment : [],
+            notification : [],
             newValue: {},
             tick : true,
             openDialog : false,
@@ -88,20 +84,16 @@
                 return;
             }
 
-            var temp = await axios.get(axios.fixUrl('/appointments'))
-            temp.data._embedded.appointments.map(obj => obj.id=obj._links.self.href.split("/")[obj._links.self.href.split("/").length - 1])
-            this.values = temp.data._embedded.appointments;
+            var temp = await axios.get(axios.fixUrl('/notifications'))
+            temp.data._embedded.notifications.map(obj => obj.id=obj._links.self.href.split("/")[obj._links.self.href.split("/").length - 1])
+            this.values = temp.data._embedded.notifications;
 
             this.newValue = {
-                'appointmentId': 0,
-                'name': '',
+                'notificationId': 0,
                 'patientId': 0,
-                'doctorId': 0,
-                'appointmentDate': '2024-12-27',
-                'status': '',
+                'message': '',
                 'createdAt': '',
-                'updatedAt': '',
-                'symptom': '',
+                'status': false,
             }
         },
         methods: {

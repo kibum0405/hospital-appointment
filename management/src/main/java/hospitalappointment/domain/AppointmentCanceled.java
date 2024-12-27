@@ -11,6 +11,7 @@ public class AppointmentCanceled extends AbstractEvent {
 
     private Long id;
     private String appointmentId;
+    private String name;
     private Long patientId;
     private String status;
 }

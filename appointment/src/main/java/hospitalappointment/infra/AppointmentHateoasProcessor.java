@@ -12,6 +12,31 @@ public class AppointmentHateoasProcessor
 
     @Override
     public EntityModel<Appointment> process(EntityModel<Appointment> model) {
+        model.add(
+            Link
+                .of(
+                    model.getRequiredLink("self").getHref() +
+                    "/createappointment"
+                )
+                .withRel("createappointment")
+        );
+        model.add(
+            Link
+                .of(
+                    model.getRequiredLink("self").getHref() +
+                    "/updateappointment"
+                )
+                .withRel("updateappointment")
+        );
+        model.add(
+            Link
+                .of(
+                    model.getRequiredLink("self").getHref() +
+                    "/cancelappointment"
+                )
+                .withRel("cancelappointment")
+        );
+
         return model;
     }
 }

@@ -65,7 +65,7 @@ services:
       - ./payment:/usr/src
       - ./maven-repo:/root/.m2
       
-  boundedcontext1353:
+  notification:
     depends_on: 
       - kafka
     image: adoptopenjdk/maven-openjdk11:latest
@@ -76,6 +76,6 @@ services:
       - 8085:8085
     working_dir: /usr/src
     volumes:
-      - ./boundedcontext1353:/usr/src
+      - ./notification:/usr/src
       - ./maven-repo:/root/.m2
       

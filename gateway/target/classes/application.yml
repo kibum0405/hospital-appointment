@@ -21,7 +21,7 @@ spring:
           uri: http://localhost:8084
           predicates:
             - Path=/bills/**, 
-        - id: boundedcontext1353
+        - id: notification
           uri: http://localhost:8085
           predicates:
             - Path=/notifications/**, 
@@ -61,8 +61,8 @@ spring:
           uri: http://payment:8080
           predicates:
             - Path=/bills/**, 
-        - id: boundedcontext1353
-          uri: http://boundedcontext1353:8080
+        - id: notification
+          uri: http://notification:8080
           predicates:
             - Path=/notifications/**, 
         - id: frontend

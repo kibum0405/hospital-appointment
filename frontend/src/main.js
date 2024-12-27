@@ -51,7 +51,7 @@ pluralCaseList.push( {plural: "managements/medicalInformations", pascal: "Manage
 
 pluralCaseList.push( {plural: "payments/bills", pascal: "PaymentBill"} )
 
-pluralCaseList.push( {plural: "boundedcontext1353s/notifications", pascal: "Boundedcontext1353Notification"} )
+pluralCaseList.push( {plural: "notifications/notifications", pascal: "NotificationNotification"} )
 
 
 Vue.prototype.$ManagerLists.forEach(function(item, idx) {

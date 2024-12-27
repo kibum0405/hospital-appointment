@@ -1,6 +1,6 @@
 <template>
     <div>
-    <h1>예약</h1>
+    <h1>알림</h1>
         <v-row>
             <v-card
                 class="mx-auto"
@@ -26,7 +26,7 @@
                         color="primary"
                         style="font-weight:500; font-size:20px; padding:15px; border:solid 2px; max-width:250px; overflow:hidden"
                     >
-                        예약 등록
+                        알림 등록
                     </v-btn>
                 </v-card-actions>
             </v-card>
@@ -46,23 +46,15 @@
                             
                             
                             
-                            
-                            
-                            
-                            
                         </v-list-item-title>
 
                         <v-list-item-subtitle style="font-size:25px; font-weight:700;">
                             [ Id :  {{data.id }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ AppointmentId :  {{data.appointmentId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ Name :  {{data.name }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ NotificationId :  {{data.notificationId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ PatientId :  {{data.patientId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ DoctorId :  {{data.doctorId }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ AppointmentDate :  {{data.appointmentDate }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ Status :  {{data.status }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ Message :  {{data.message }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             [ CreatedAt :  {{data.createdAt }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ UpdatedAt :  {{data.updatedAt }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            [ Symptom :  {{data.symptom }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            [ Status :  {{data.status }} ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         </v-list-item-subtitle>
 
                     </v-list-item-content>
@@ -82,7 +74,7 @@
                         transition="dialog-bottom-transition"
                 >
 
-                    <AppointmentAppointment :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
+                    <NotificationNotification :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" @add="append" v-if="tick"/>
                 
                     <v-btn
                             style="postition:absolute; top:2%; right:2%"
@@ -101,12 +93,12 @@
 
 <script>
     const axios = require('axios').default;
-    import AppointmentAppointment from './../AppointmentAppointment.vue';
+    import NotificationNotification from './../NotificationNotification.vue';
 
     export default {
-        name: 'AppointmentAppointmentManager',
+        name: 'NotificationNotificationManager',
         components: {
-            AppointmentAppointment,
+            NotificationNotification,
         },
         props: {
             offline: Boolean,
@@ -125,20 +117,16 @@
                 return;
             } 
 
-            var temp = await axios.get(axios.fixUrl('/appointments'))
-            temp.data._embedded.appointments.map(obj => obj.id=obj._links.self.href.split("/")[obj._links.self.href.split("/").length - 1])
-            this.values = temp.data._embedded.appointments;
+            var temp = await axios.get(axios.fixUrl('/notifications'))
+            temp.data._embedded.notifications.map(obj => obj.id=obj._links.self.href.split("/")[obj._links.self.href.split("/").length - 1])
+            this.values = temp.data._embedded.notifications;
             
             this.newValue = {
-                'appointmentId': 0,
-                'name': '',
+                'notificationId': 0,
                 'patientId': 0,
-                'doctorId': 0,
-                'appointmentDate': '2024-12-27',
-                'status': '',
+                'message': '',
                 'createdAt': '',
-                'updatedAt': '',
-                'symptom': '',
+                'status': false,
             }
         },
         methods: {

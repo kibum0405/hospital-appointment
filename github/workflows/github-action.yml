@@ -32,7 +32,7 @@ jobs:
           mvn clean package -f ./appointment/pom.xml
           mvn clean package -f ./management/pom.xml
           mvn clean package -f ./payment/pom.xml
-          mvn clean package -f ./boundedcontext1353/pom.xml
+          mvn clean package -f ./notification/pom.xml
 
       - name: Docker Build and push for Appointment
         uses: docker/build-push-action@v4
@@ -64,13 +64,13 @@ jobs:
             ghcr.io/${{ github.repository }}/payment:latest
             ghcr.io/${{ github.repository }}/payment:${{ github.ref_name }}
             
-      - name: Docker Build and push for Boundedcontext1353
+      - name: Docker Build and push for Notification
         uses: docker/build-push-action@v4
         with:
-          context: ./boundedcontext1353
+          context: ./notification
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository }}/boundedcontext1353:latest
-            ghcr.io/${{ github.repository }}/boundedcontext1353:${{ github.ref_name }}
+            ghcr.io/${{ github.repository }}/notification:latest
+            ghcr.io/${{ github.repository }}/notification:${{ github.ref_name }}
             

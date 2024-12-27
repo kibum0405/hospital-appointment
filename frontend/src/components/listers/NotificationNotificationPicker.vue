@@ -15,31 +15,19 @@
                             <v-list-item-title>
                             </v-list-item-title>
                             <v-list-item-subtitle>
-                                AppointmentId :  {{item.appointmentId }}
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle>
-                                Name :  {{item.name }}
+                                NotificationId :  {{item.notificationId }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
                                 PatientId :  {{item.patientId }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
-                                DoctorId :  {{item.doctorId }}
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle>
-                                AppointmentDate :  {{item.appointmentDate }}
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle>
-                                Status :  {{item.status }}
+                                Message :  {{item.message }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
                                 CreatedAt :  {{item.createdAt }}
                             </v-list-item-subtitle>
                             <v-list-item-subtitle>
-                                UpdatedAt :  {{item.updatedAt }}
-                            </v-list-item-subtitle>
-                            <v-list-item-subtitle>
-                                Symptom :  {{item.symptom }}
+                                Status :  {{item.status }}
                             </v-list-item-subtitle>
                         </v-list-item-content>
 
@@ -58,7 +46,7 @@
     const axios = require('axios').default;
 
     export default {
-        name: 'AppointmentAppointmentPicker',
+        name: 'NotificationNotificationPicker',
         props: {
             value: [String, Object, Array, Number, Boolean],
         },
@@ -68,14 +56,14 @@
         }),
         async created() {
             var me = this;
-            var temp = await axios.get(axios.fixUrl('/appointments'))
+            var temp = await axios.get(axios.fixUrl('/notifications'))
             if(temp.data) {
-                me.list = temp.data._embedded.appointments;
+                me.list = temp.data._embedded.notifications;
             }
 
             if(me.value && typeof me.value == "object" && Object.values(me.value)[0]) {
                 var id = Object.values(me.value)[0];
-                var tmpValue = await axios.get(axios.fixUrl('/appointments/' + id))
+                var tmpValue = await axios.get(axios.fixUrl('/notifications/' + id))
                 if(tmpValue.data) {
                     var val = tmpValue.data
                     me.list.forEach(function(item, idx) {
@@ -92,14 +80,6 @@
                 if(val != undefined) {
                     var arr = this.list[val]._links.self.href.split('/');
                     obj['id'] = arr[4]; 
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     
                     

@@ -14,8 +14,8 @@ import ManagementMedicalInformationDetail from "./components/listers/ManagementM
 import PaymentBillManager from "./components/listers/PaymentBillCards"
 import PaymentBillDetail from "./components/listers/PaymentBillDetail"
 
-import Boundedcontext1353NotificationManager from "./components/listers/Boundedcontext1353NotificationCards"
-import Boundedcontext1353NotificationDetail from "./components/listers/Boundedcontext1353NotificationDetail"
+import NotificationNotificationManager from "./components/listers/NotificationNotificationCards"
+import NotificationNotificationDetail from "./components/listers/NotificationNotificationDetail"
 
 
 export default new Router({
@@ -56,14 +56,14 @@ export default new Router({
             },
 
             {
-                path: '/boundedcontext1353s/notifications',
-                name: 'Boundedcontext1353NotificationManager',
-                component: Boundedcontext1353NotificationManager
+                path: '/notifications/notifications',
+                name: 'NotificationNotificationManager',
+                component: NotificationNotificationManager
             },
             {
-                path: '/boundedcontext1353s/notifications/:id',
-                name: 'Boundedcontext1353NotificationDetail',
-                component: Boundedcontext1353NotificationDetail
+                path: '/notifications/notifications/:id',
+                name: 'NotificationNotificationDetail',
+                component: NotificationNotificationDetail
             },
 
 

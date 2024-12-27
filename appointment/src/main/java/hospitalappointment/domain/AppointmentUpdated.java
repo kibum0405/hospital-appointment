@@ -13,6 +13,7 @@ public class AppointmentUpdated extends AbstractEvent {
 
     private Long id;
     private Long appointmentId;
+    private String name;
     private Long patientId;
     private Long doctorId;
     private Date appointmentDate;

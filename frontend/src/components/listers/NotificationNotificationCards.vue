@@ -8,7 +8,7 @@
         >
             <v-row>
                 <v-list-item class="d-flex" style="background-color: white;">
-                    <h1 class="align-self-center ml-3">예약</h1>
+                    <h1 class="align-self-center ml-3">알림</h1>
                     <div class="secondary-text-color" style="margin-left:30px;"></div>
                 </v-list-item>
             </v-row>
@@ -22,7 +22,7 @@
                         hide-overlay
                         transition="dialog-bottom-transition"
                 >
-                    <AppointmentAppointment :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
+                    <NotificationNotification :offline="offline" class="video-card" :isNew="true" :editMode="true" v-model="newValue" 
                             @add="append" v-if="tick"/>
 
                     <v-btn
@@ -61,7 +61,7 @@
                                 color="primary"
                                 style="font-weight:500; font-size:20px; padding:15px; border:solid 2px; max-width:250px; overflow:hidden"
                             >
-                                예약 등록
+                                알림 등록
                             </v-btn>
                         </v-card-actions>
                     </v-card>
@@ -69,7 +69,7 @@
             </div>
         </v-col>
         <v-row>
-            <AppointmentAppointment :offline="offline" class="video-card" v-for="(value, index) in values" v-model="values[index]" v-bind:key="index" @delete="remove"/>
+            <NotificationNotification :offline="offline" class="video-card" v-for="(value, index) in values" v-model="values[index]" v-bind:key="index" @delete="remove"/>
         </v-row>
     </div>
 </template>
@@ -77,12 +77,12 @@
 <script>
 
     const axios = require('axios').default;
-    import AppointmentAppointment from './../AppointmentAppointment.vue';
+    import NotificationNotification from './../NotificationNotification.vue';
 
     export default {
-        name: 'AppointmentAppointmentManager',
+        name: 'NotificationNotificationManager',
         components: {
-            AppointmentAppointment,
+            NotificationNotification,
         },
         props: {
             offline: Boolean
@@ -100,19 +100,15 @@
                 return;
             } 
 
-            var temp = await axios.get(axios.fixUrl('/appointments'))
-            me.values = temp.data._embedded.appointments;
+            var temp = await axios.get(axios.fixUrl('/notifications'))
+            me.values = temp.data._embedded.notifications;
             
             me.newValue = {
-                'appointmentId': 0,
-                'name': '',
+                'notificationId': 0,
                 'patientId': 0,
-                'doctorId': 0,
-                'appointmentDate': '2024-12-27',
-                'status': '',
+                'message': '',
                 'createdAt': '',
-                'updatedAt': '',
-                'symptom': '',
+                'status': false,
             }
         },
         methods:{

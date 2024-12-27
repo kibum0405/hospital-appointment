@@ -9,22 +9,18 @@
         </template>
 
         <v-card-title v-if="value._links">
-            예약 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
+            알림 # {{decode(value._links.self.href.split("/")[value._links.self.href.split("/").length - 1])}}
         </v-card-title >
         <v-card-title v-else>
-            예약
+            알림
         </v-card-title >        
 
         <v-card-text style="background-color: white;">
-            <Number label="예약 ID" v-model="value.appointmentId" :editMode="editMode" :inputUI="''"/>
-            <String label="이름" v-model="value.name" :editMode="editMode" :inputUI="''"/>
+            <Number label="알림 ID" v-model="value.notificationId" :editMode="editMode" :inputUI="''"/>
             <Number label="환자 ID" v-model="value.patientId" :editMode="editMode" :inputUI="''"/>
-            <Number label="의사 ID" v-model="value.doctorId" :editMode="editMode" :inputUI="''"/>
-            <Date label="예약 날짜" v-model="value.appointmentDate" :editMode="editMode" :inputUI="''"/>
-            <String label="예약 상태" v-model="value.status" :editMode="editMode" :inputUI="''"/>
-            <String label="생성 시간" v-model="value.createdAt" :editMode="editMode" :inputUI="''"/>
-            <String label="수정 시간" v-model="value.updatedAt" :editMode="editMode" :inputUI="''"/>
-            <String label="증상" v-model="value.symptom" :editMode="editMode" :inputUI="''"/>
+            <String label="알림 메시지 내용" v-model="value.message" :editMode="editMode" :inputUI="''"/>
+            <String label="알림 생성 시간" v-model="value.createdAt" :editMode="editMode" :inputUI="''"/>
+            <Boolean label="알림 상태" v-model="value.status" :editMode="editMode" :inputUI="''"/>
         </v-card-text>
 
         <v-card-actions style="background-color: white;">
@@ -65,30 +61,6 @@
         </v-card-actions>
         <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-                v-if="!editMode"
-                color="primary"
-                text
-                @click="createAppointment"
-            >
-                CreateAppointment
-            </v-btn>
-            <v-btn
-                v-if="!editMode"
-                color="primary"
-                text
-                @click="updateAppointment"
-            >
-                UpdateAppointment
-            </v-btn>
-            <v-btn
-                v-if="!editMode"
-                color="primary"
-                text
-                @click="cancelAppointment"
-            >
-                CancelAppointment
-            </v-btn>
         </v-card-actions>
 
         <v-snackbar
@@ -111,7 +83,7 @@
 
 
     export default {
-        name: 'AppointmentAppointment',
+        name: 'NotificationNotification',
         components:{
         },
         props: {
@@ -166,7 +138,7 @@
 
                     if(!this.offline) {
                         if(this.isNew) {
-                            temp = await axios.post(axios.fixUrl('/appointments'), this.value)
+                            temp = await axios.post(axios.fixUrl('/notifications'), this.value)
                         } else {
                             temp = await axios.put(axios.fixUrl(this.value._links.self.href), this.value)
                         }
@@ -222,63 +194,6 @@
             },
             change(){
                 this.$emit('input', this.value);
-            },
-            async createAppointment() {
-                try {
-                    if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['createappointment'].href))
-                        for(var k in temp.data) {
-                            this.value[k]=temp.data[k];
-                        }
-                    }
-
-                    this.editMode = false;
-                } catch(e) {
-                    this.snackbar.status = true
-                    if(e.response && e.response.data.message) {
-                        this.snackbar.text = e.response.data.message
-                    } else {
-                        this.snackbar.text = e
-                    }
-                }
-            },
-            async updateAppointment() {
-                try {
-                    if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['updateappointment'].href))
-                        for(var k in temp.data) {
-                            this.value[k]=temp.data[k];
-                        }
-                    }
-
-                    this.editMode = false;
-                } catch(e) {
-                    this.snackbar.status = true
-                    if(e.response && e.response.data.message) {
-                        this.snackbar.text = e.response.data.message
-                    } else {
-                        this.snackbar.text = e
-                    }
-                }
-            },
-            async cancelAppointment() {
-                try {
-                    if(!this.offline) {
-                        var temp = await axios.put(axios.fixUrl(this.value._links['cancelappointment'].href))
-                        for(var k in temp.data) {
-                            this.value[k]=temp.data[k];
-                        }
-                    }
-
-                    this.editMode = false;
-                } catch(e) {
-                    this.snackbar.status = true
-                    if(e.response && e.response.data.message) {
-                        this.snackbar.text = e.response.data.message
-                    } else {
-                        this.snackbar.text = e
-                    }
-                }
             },
         },
     }

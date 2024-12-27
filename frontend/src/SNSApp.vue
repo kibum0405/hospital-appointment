@@ -71,7 +71,7 @@
                     <v-list-item
                         class="px-2"
                         key="notifications"
-                        to="/boundedcontext1353s/notifications"
+                        to="/notifications/notifications"
                         @click="changeUrl()"
                         color="primary"
                         style="font-weight:700;"
@@ -183,7 +183,7 @@ export default {
                 title: '알림', 
                 description: 'Notification을 관리하는 화면입니다.', 
                 key: 'notifications', 
-                route: '/boundedcontext1353s/notifications',
+                route: '/notifications/notifications',
                 ImageUrl: '',
             },
             

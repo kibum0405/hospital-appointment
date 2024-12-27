@@ -1,12 +1,11 @@
 package hospitalappointment.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hospitalappointment.AppointmentApplication;
-import hospitalappointment.domain.AppointmentCanceled;
-import hospitalappointment.domain.AppointmentCreated;
-import hospitalappointment.domain.AppointmentUpdated;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -22,6 +21,8 @@ public class Appointment {
 
     private Long appointmentId;
 
+    private String name;
+
     private Long patientId;
 
     private Long doctorId;
@@ -36,23 +37,11 @@ public class Appointment {
 
     private String symptom;
 
-    @PostPersist
-    public void onPostPersist() {
-        AppointmentCreated appointmentCreated = new AppointmentCreated(this);
-        appointmentCreated.publishAfterCommit();
-    }
-
     @PrePersist
     public void onPrePersist() {}
 
     @PreUpdate
-    public void onPreUpdate() {
-        AppointmentUpdated appointmentUpdated = new AppointmentUpdated(this);
-        appointmentUpdated.publishAfterCommit();
-
-        AppointmentCanceled appointmentCanceled = new AppointmentCanceled(this);
-        appointmentCanceled.publishAfterCommit();
-    }
+    public void onPreUpdate() {}
 
     public static AppointmentRepository repository() {
         AppointmentRepository appointmentRepository = AppointmentApplication.applicationContext.getBean(
@@ -60,5 +49,33 @@ public class Appointment {
         );
         return appointmentRepository;
     }
+
+    //<<< Clean Arch / Port Method
+    public void createAppointment() {
+        //implement business logic here:
+
+        AppointmentCreated appointmentCreated = new AppointmentCreated(this);
+        appointmentCreated.publishAfterCommit();
+    }
+
+    //>>> Clean Arch / Port Method
+    //<<< Clean Arch / Port Method
+    public void updateAppointment() {
+        //implement business logic here:
+
+        AppointmentUpdated appointmentUpdated = new AppointmentUpdated(this);
+        appointmentUpdated.publishAfterCommit();
+    }
+
+    //>>> Clean Arch / Port Method
+    //<<< Clean Arch / Port Method
+    public void cancelAppointment() {
+        //implement business logic here:
+
+        AppointmentCanceled appointmentCanceled = new AppointmentCanceled(this);
+        appointmentCanceled.publishAfterCommit();
+    }
+    //>>> Clean Arch / Port Method
+
 }
 //>>> DDD / Aggregate Root

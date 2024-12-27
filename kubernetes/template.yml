@@ -123,22 +123,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: boundedcontext1353
+  name: notification
   labels:
-    app: boundedcontext1353
+    app: notification
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: boundedcontext1353
+      app: notification
   template:
     metadata:
       labels:
-        app: boundedcontext1353
+        app: notification
     spec:
       containers:
-        - name: boundedcontext1353
-          image: username/boundedcontext1353:latest
+        - name: notification
+          image: username/notification:latest
           ports:
             - containerPort: 8080
           readinessProbe:
@@ -216,13 +216,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: boundedcontext1353
+  name: notification
   labels:
-    app: boundedcontext1353
+    app: notification
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: boundedcontext1353
+    app: notification
 

@@ -23,7 +23,7 @@ See the README.md files inside the each microservices directory:
 - appointment
 - management
 - payment
-- boundedcontext1353
+- notification
 
 
 ## Run API Gateway (Spring Gateway)
@@ -35,19 +35,19 @@ mvn spring-boot:run
 ## Test by API
 - appointment
 ```
- http :8088/appointments id="id" appointmentId="appointmentId" patientId="patientId" doctorId="doctorId" appointmentDate="appointmentDate" status="status" createdAt="createdAt" updatedAt="updatedAt" symptom="symptom" 
+ http :8088/appointments id="id"appointmentId="appointmentId"name="name"patientId="patientId"doctorId="doctorId"appointmentDate="appointmentDate"status="status"createdAt="createdAt"updatedAt="updatedAt"symptom="symptom"
 ```
 - management
 ```
- http :8088/medicalInformations id="id" recordId="recordId" patientId="patientId" doctorId="doctorId" diagnosis="diagnosis" treatment="treatment" createdAt="createdAt" updatedAt="updatedAt" status="status" 
+ http :8088/medicalInformations id="id"recordId="recordId"patientId="patientId"doctorId="doctorId"diagnosis="diagnosis"treatment="treatment"createdAt="createdAt"updatedAt="updatedAt"status="status"
 ```
 - payment
 ```
- http :8088/bills id="id" billId="billId" patientId="patientId" medicalRecordId="medicalRecordId" amount="amount" status="status" createdAt="createdAt" completionTime="completionTime" 
+ http :8088/bills id="id"billId="billId"patientId="patientId"medicalRecordId="medicalRecordId"amount="amount"status="status"createdAt="createdAt"completionTime="completionTime"
 ```
-- boundedcontext1353
+- notification
 ```
- http :8088/notifications id="id" notificationId="notificationId" patientId="patientId" message="message" createdAt="createdAt" status="status" 
+ http :8088/notifications id="id"notificationId="notificationId"patientId="patientId"message="message"createdAt="createdAt"status="status"
 ```
 
 
@@ -89,4 +89,3 @@ sudo ./aws/install
 curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
 sudo mv /tmp/eksctl /usr/local/bin
 ```
-

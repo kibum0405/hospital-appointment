@@ -1,10 +1,12 @@
 package hospitalappointment.domain;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hospitalappointment.PaymentApplication;
 import hospitalappointment.domain.PaymentCompleted;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.*;
 import lombok.Data;
 
